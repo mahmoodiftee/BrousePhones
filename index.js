@@ -1,24 +1,40 @@
-const loadPhone = async (searchText) => {
-  const res = await fetch(` https://openapi.programming-hero.com/api/phones?search=${searchText}`);
-  const data = await res.json();
-  const phones = data.data;
-  displayPhones(phones);
+const loadPhone = async (searchText, showAll) => {
+  try {
+    const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
+    const data = await res.json();
+    const phones = data.data;
+    displayPhones(phones, showAll); // Pass showAll as an argument
+  } catch (error) {
+    console.error("API request error:", error);
+  }
 }
 
-const displayPhones = phones => {
-
+let allPhonesDisplayed = false;
+const displayPhones = (phones, showAll) => {
+  // console.log("displayPhones called with showAll:", showAll);
   const phoneContainer = document.getElementById('phone-container');
   phoneContainer.innerHTML = '';
-  const showAll = document.getElementById("show-all-container");
-  if(phones.length > 12){
-    showAll.classList.remove('hidden');
-  }else{
-    showAll.classList.add('hidden');
+  const showAllButton = document.getElementById("show-all-container");
+  if (phones.length > 12) {
+    showAllButton.classList.remove('hidden');
+  } else {
+    showAllButton.classList.add('hidden');
   }
 
-  phones = phones.slice(0, 12);
+  let phonesToDisplay;
+
+  if (showAll) {
+    phonesToDisplay = phones;
+    showAllButton.classList.add('hidden');
+  } else {
+    phonesToDisplay = phones.slice(0, 12);
+  }
+
   // const filteredPhones = phones.filter(phone => phone.mobile_id > 10);
-  phones.forEach(phone => {
+  phonesToDisplay.forEach(phone => {
     const phoneCard = document.createElement('div');
     phoneCard.classList = `card bg-gray-100 p-4 shadow-lg m-2`;
     phoneCard.innerHTML = `
@@ -33,19 +49,28 @@ const displayPhones = phones => {
     `;
     phoneContainer.appendChild(phoneCard);
   });
+  loading(false);
+  allPhonesDisplayed = false;
 
 }
 const handleSearch = () => {
+  loading(true);
   const searchField = document.getElementById("search-field")
   const searchText = searchField.value;
   loadPhone(searchText);
 }
+const handleShowAll = () => {
+   allPhonesDisplayed = true;
+  const searchField = document.getElementById("search-field");
+  const searchText = searchField.value;
+  loadPhone(searchText, allPhonesDisplayed);
+}
 
-// const searchPhone = async () => {
-//   const res = await fetch(" https://openapi.programming-hero.com/api/phone/apple_iphone_13_pro_max-11089");
-//   const data = await res.json();
-//   console.log(data.data);
-//   // const phones = data.data;
-//   // displayPhones(phones);
-// }
-// searchPhone();
+const loading = (isloading) => {
+  const loadingToggle = document.getElementById("loading-spinner");
+  if (isloading) {
+    loadingToggle.classList.remove('hidden')
+  } else {
+    loadingToggle.classList.add('hidden')
+  }
+}
