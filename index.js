@@ -13,28 +13,26 @@ const loadPhone = async (searchText, showAll) => {
 }
 
 let allPhonesDisplayed = false;
+
 const displayPhones = (phones, showAll) => {
-  // console.log("displayPhones called with showAll:", showAll);
   const phoneContainer = document.getElementById('phone-container');
   phoneContainer.innerHTML = '';
+
+  //show all button hide and unhide acording to phone length 
   const showAllButton = document.getElementById("show-all-container");
   if (phones.length > 12) {
     showAllButton.classList.remove('hidden');
   } else {
     showAllButton.classList.add('hidden');
   }
-
-  let phonesToDisplay;
-
+ //hiding show all button after showing all the phones
   if (showAll) {
-    phonesToDisplay = phones;
     showAllButton.classList.add('hidden');
   } else {
-    phonesToDisplay = phones.slice(0, 12);
+    phones = phones.slice(0, 12);
   }
-
-  // const filteredPhones = phones.filter(phone => phone.mobile_id > 10);
-  phonesToDisplay.forEach(phone => {
+ //looping through phones to set the cards
+  phones.forEach(phone => {
     const phoneCard = document.createElement('div');
     phoneCard.classList = `card bg-gray-100 p-4 shadow-lg m-2`;
     phoneCard.innerHTML = `
@@ -49,8 +47,8 @@ const displayPhones = (phones, showAll) => {
     `;
     phoneContainer.appendChild(phoneCard);
   });
+  //after showing result disable the loading and showAll button
   loading(false);
-  allPhonesDisplayed = false;
 
 }
 const handleSearch = () => {
