@@ -4,45 +4,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brouse Phones</title>
+    <title>PhoneHunt</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@3.6.2/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
-    <header>
-        <h2 class="text-6xl font-bold text-center ">Brouse Phones</h2>
-    </header>
-    <main class="container mx-auto mt-8">
-
-        <section class="bg-slate-900 rounded-full p-4 m-4">
-            <div class="flex justify-center gap-4">
-                <input id="search-field" type="text" placeholder="search..."
-                    class="input input-bordered w-full max-w-xs" />
-                <button onclick="handleSearch()" class="btn btn-accent">Search</button>
+    
+    <section class="mt-4">
+        <!-- nav -->
+        <!-- <nav class="container z-10 absolute mx-auto px-5 lg:px-24 flex flex-row justify-between items-center rounded-lg">
+            <h1 class="font-bold mt-4 ml-4 text-2xl text-white">
+                <a href="#">PhoneHunt</a>
+            </h1>
+            <div>
+                <button
+                    class="btn glass mt-4 mr-4 font-semibold text-xl text-white px-5 py-2 rounded-lg">
+                    Sign In
+                </button>
             </div>
-        </section>
-
-
-        <!--Phone Container, search result & spinner effect -->
-        <section>
-            <!-- spinner or loader -->
-            <div id="loading-spinner" class="text-center my-20 hidden">
-                <span class="loading w-[70px] loading-bars text-slate-900 text-primary loading-lg"></span>
+        </nav> -->
+        <div class="mb-4 container mx-auto px-5 lg:px-24 flex flex-col justify-center relative items-center rounded-lg py-200 py-24">
+            <button class="glass rounded-full border-none shadow-none z-10 h-[40px] w-[350px] font-bold text-white text-[16px] md:text-2xl lg:font-semibold tracking-widest mb-4 lg:h-[60px] lg:w-[500px] lg:mb-12">Explore Your
+                Desired Phones</button>
+                <!-- img -->
+            <img src="./bg.jpg" class="absolute object-cover h-full w-full px-4 lg:px-24" />
+            <div class="z-10 ">
+                <div class="flex justify-center gap-2 lg:gap-4">
+                    <input id="search-field" type="text" placeholder="search..."
+                        class=" input input-bordered  w-[350] lg:w-[500px] max-w-xs" />
+                    <button onclick="handleSearch()" class="btn btn-accent">Search</button>
+                </div>
             </div>
-            <div id="phone-container" class="mx-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        </div>
+    </section>
 
-            </div>
-            <!-- show all button -->
-            <div id="show-all-container" class="hidden text-center my-8">
-                <button onclick="handleShowAll()" class="btn btn-accent">Show All</button>
-            </div>
-        </section>
-
-        <!-- Show Details modal -->
-        <div id="modal-container">
+    <!--Phone Container, search result & spinner effect -->
+    <section>
+        <!-- spinner or loader -->
+        <div id="loading-spinner" class="text-center my-20 hidden">
+            <span class="loading w-[70px] loading-bars text-slate-900 text-primary loading-lg"></span>
+        </div>
+        <div id="phone-container" class="mx-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
         </div>
+        <!-- show all button -->
+        <div id="show-all-container" class="hidden text-center my-8">
+            <button onclick="handleShowAll()" class="btn btn-accent">Show All</button>
+        </div>
+    </section>
+
+    <!-- Show Details modal -->
+    <div id="modal-container">
+
+    </div>
     </main>
     <footer>
 

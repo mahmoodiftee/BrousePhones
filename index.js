@@ -1,4 +1,4 @@
-const loadPhone = async (searchText, showAll) => {
+const loadPhone = async (searchText='iphone', showAll) => {
   try {
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
     if (!res.ok) {
@@ -120,3 +120,5 @@ const closeModal = (modalId) => {
   const modalContainer = document.getElementById("modal-container");
   modalContainer.innerHTML = '';
 };
+
+loadPhone();
